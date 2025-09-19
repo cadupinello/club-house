@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   title: "ClubHouse FC - Comunidade do Clube",
   description: "Plataforma social para sócios do ClubHouse FC",
   generator: "v0.app",
-}
+};
 
 export default function RootLayout({
   children,
@@ -25,11 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Suspense fallback={null}>{children}</Suspense>
+    <html lang="pt-BR" suppressHydrationWarning>
+     <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Providers>
+            <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );
