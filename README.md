@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Claro! Aqui está uma versão completa e finalizada do seu README:
 
-## Getting Started
+````markdown
+# ClubHouse FC - Comunidade do Clube
 
-First, run the development server:
+Este é um projeto de uma plataforma social para sócios do ClubHouse FC, desenvolvido com Next.js, React e TypeScript.
+
+## Características
+
+- Autenticação com e-mail e senha
+- Cadastro de novos sócios
+- Listagem de sócios
+- Detalhes de um sócio
+- Busca por sócios
+- Interface responsiva com Tailwind CSS
+- Validação de formulários com Zod
+- Gerenciamento de estado e cache com React Query
+- Comunicação com backend via TRPC
+
+## Tecnologias
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Prisma
+- Zod
+- React Query
+- TRPC
+- Lucide Icons
+
+## Pré-requisitos
+
+- Node.js >= 18
+- npm ou yarn
+- Banco de dados (SQLite por padrão, mas pode ser PostgreSQL/MySQL)
+
+## Instalação
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/clubhouse-fc.git
+````
+
+2. Entre na pasta do projeto:
+
+```bash
+cd clubhouse-fc
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+# ou
+yarn install
+```
+
+4. Configure seu banco de dados no arquivo `.env`:
+
+```env
+DATABASE_URL="file:./dev.db" # Exemplo com SQLite
+```
+
+5. Rode as migrações do Prisma:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+## Rodando o projeto
+
+Para rodar o projeto em modo de desenvolvimento:
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O projeto estará disponível em [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts úteis
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* `dev` - Inicia o servidor de desenvolvimento
+* `build` - Compila o projeto para produção
+* `start` - Inicia o projeto em produção
+* `prisma studio` - Abre o Prisma Studio para visualização do banco de dados
 
-## Learn More
+## Contribuindo
 
-To learn more about Next.js, take a look at the following resources:
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/nome-da-feature`)
+3. Faça commit das alterações (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nome-da-feature`)
+5. Abra um Pull Request
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Licença
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## Deploy on Vercel
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Se você quiser, posso também adicionar **uma seção de screenshots e demonstração** do app para deixar o README mais profissional e atrativo. Quer que eu faça isso?
+```
