@@ -96,8 +96,3 @@ O projeto estará disponível em [http://localhost:3000](http://localhost:3000).
 ## Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-```
-
-Se você quiser, posso também adicionar **uma seção de screenshots e demonstração** do app para deixar o README mais profissional e atrativo. Quer que eu faça isso?
-```
