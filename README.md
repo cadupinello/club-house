@@ -1,5 +1,3 @@
-Claro! Aqui está uma versão completa e finalizada do seu README:
-
 ````markdown
 # ClubHouse FC - Comunidade do Clube
 
