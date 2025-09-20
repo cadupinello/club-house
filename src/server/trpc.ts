@@ -1,7 +1,24 @@
+import { initTRPC, TRPCError } from "@trpc/server";
+import { Context } from "./context";
 
-import { initTRPC } from '@trpc/server';
+const t = initTRPC.context<Context>().create();
 
-const t = initTRPC.create()
+export const router = t.router;
+export const publicProcedure = t.procedure;
 
-export const router = t.router
-export const publicProcedure = t.procedure
+export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
+ console.log('CONTEXT',ctx.user);
+ 
+  if (!ctx.user) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "Usuário não autenticado",
+    });
+  }
+  return next({ 
+    ctx: {
+      ...ctx,
+      user: ctx.user
+    } 
+  });
+});

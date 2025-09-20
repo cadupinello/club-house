@@ -1,5 +1,6 @@
 import { Header } from "../_components/header";
-import ContentFeed from "./_components/content-feed";
+import { CreatePostWrapper } from "./_components/create-post-wrapper";
+import ListPosts from "./_components/list-posts";
 
 export default function FeedPage() {
   return (
@@ -7,7 +8,8 @@ export default function FeedPage() {
       <Header />
       <main className="container mx-auto px-4 py-6 max-w-2xl">
         <div className="space-y-6">
-          <ContentFeed />
+          <CreatePostWrapper />
+          <ListPosts />
         </div>
       </main>
     </div>

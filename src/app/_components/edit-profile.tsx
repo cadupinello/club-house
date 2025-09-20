@@ -19,7 +19,7 @@ import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { TMember } from "./member-profile";
+import { TMemberProfile } from "../../types/members";
 
 const editProfileSchema = z.object({
   name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres"),
@@ -36,7 +36,7 @@ type EditProfileForm = z.infer<typeof editProfileSchema>;
 interface EditProfileDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  member: TMember;
+  member: TMemberProfile;
 }
 
 export function EditProfileDialog({
@@ -117,7 +117,7 @@ export function EditProfileDialog({
               <input {...getInputProps()} />
               <Avatar className="h-20 w-20">
                 <AvatarImage
-                  src={preview || member.avatar}
+                  src={preview || member.avatar || ""}
                   className="object-cover"
                 />
                 <AvatarFallback className="bg-primary text-primary-foreground text-xl">

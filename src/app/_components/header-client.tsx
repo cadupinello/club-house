@@ -16,13 +16,9 @@ export default function HeaderClient({ user }: Props) {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href="/feed"
-          className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+          className="flex items-center space-x-3 hover:opacity-80 transition-opacity animate-in fade-in-50"
         >
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-            <span className="text-sm font-bold text-primary-foreground">
-              ⚽
-            </span>
-          </div>
+          <span className="text-sm font-bold text-primary-foreground">⚽</span>
           <h1 className="text-xl font-bold text-foreground">ClubHouse FC</h1>
         </Link>
 

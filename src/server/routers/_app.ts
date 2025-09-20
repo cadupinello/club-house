@@ -1,20 +1,11 @@
-import z from "zod";
-import { publicProcedure, router } from "../trpc";
+import { router } from "../trpc";
+import { MemberProfileRouter } from "./members/[id]/route";
+
+import { PostRouter } from "./post";
 
 export const appRouter = router({
-  hello: publicProcedure
-    .input(
-      z
-        .object({
-          name: z.string().nullish(),
-        })
-        .nullish()
-    )
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input?.name ?? "world"}`,
-      };
-    }),
+  member: MemberProfileRouter,
+  post: PostRouter,
 });
 
 export type AppRouter = typeof appRouter;
