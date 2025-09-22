@@ -1,5 +1,5 @@
+import { MemberProfile } from "@/app/(dashboard)/profile/_components/member-profile";
 import { Header } from "@/app/_components/header";
-import { MemberProfile } from "@/app/_components/member-profile";
 
 export default function ProfilePage() {
   return (

@@ -5,16 +5,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { AuthForm } from "./auth/_components/auth-form";
+import { Shield } from "lucide-react";
+import { AuthForm } from "./_components/auth-form";
 
-export default function Home() {
+const AuthPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
           <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-2xl font-bold text-primary-foreground">
-              ⚽
+              <Shield />
             </span>
           </div>
           <h1 className="text-3xl font-bold text-foreground">ClubHouse FC</h1>
@@ -37,4 +38,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default AuthPage;

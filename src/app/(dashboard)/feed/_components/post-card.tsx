@@ -25,6 +25,7 @@ import { CommentsSection } from "./comment-section";
 interface Post {
   id: string;
   author: {
+    id: string;
     name: string;
     avatar: string;
     role: string;
@@ -66,7 +67,7 @@ export function PostCard({ post }: PostCardProps) {
       <CardHeader className="pb-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
-            <Link href={`/profile/1`}>
+            <Link href={`/profile/${post.author.id}`}>
               <Avatar className="h-12 w-12 cursor-pointer ring-2 ring-transparent hover:ring-primary/20 transition-all duration-300">
                 <AvatarImage src={post.author.avatar || "/placeholder.svg"} />
                 <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-primary-foreground font-medium">
@@ -79,7 +80,10 @@ export function PostCard({ post }: PostCardProps) {
             </Link>
             <div>
               <div className="flex items-center space-x-2">
-                <Link href={`/profile/1`} className="hover:underline">
+                <Link
+                  href={`/profile/${post.author.id}`}
+                  className="hover:underline"
+                >
                   <h3 className="font-semibold text-sm font-heading">
                     {post.author.name}
                   </h3>

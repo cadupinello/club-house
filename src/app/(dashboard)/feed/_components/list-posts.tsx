@@ -7,6 +7,8 @@ import { PostCard } from "./post-card";
 const ListPosts = () => {
   const { data: post, isLoading } = trpc.post.getAll.useQuery();
 
+  console.log(post);
+
   return (
     <div className="space-y-6">
       {isLoading ? (
@@ -22,6 +24,7 @@ const ListPosts = () => {
             post={{
               id: String(post.id),
               author: {
+                id: post.user.id,
                 name: post.user.name,
                 avatar: post.user.image ?? "/placeholder.svg",
                 role: "user",

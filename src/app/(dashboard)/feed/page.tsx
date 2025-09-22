@@ -1,4 +1,4 @@
-import { Header } from "../_components/header";
+import { Header } from "@/app/_components/header";
 import { CreatePostWrapper } from "./_components/create-post-wrapper";
 import ListPosts from "./_components/list-posts";
 

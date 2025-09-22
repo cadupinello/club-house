@@ -1,5 +1,5 @@
 import { router } from "../trpc";
-import { MemberProfileRouter } from "./members/[id]/route";
+import { MemberProfileRouter } from "./members";
 
 import { PostRouter } from "./post";
 

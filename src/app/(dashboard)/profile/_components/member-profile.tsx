@@ -9,8 +9,8 @@ import { Calendar, Edit, MapPin, Trophy } from "lucide-react";
 import { useState } from "react";
 import { EditProfileDialog } from "./edit-profile";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { useParams } from "next/navigation";
-import { Skeleton } from "../../components/ui/skeleton";
 
 export function MemberProfile() {
   const [showEditDialog, setShowEditDialog] = useState(false);

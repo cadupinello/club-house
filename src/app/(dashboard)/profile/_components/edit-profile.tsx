@@ -11,15 +11,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { trpc } from "@/lib/trpc";
+import { TMemberProfile } from "@/types/members";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Camera, Save } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { Camera, Loader2, Save } from "lucide-react";
 import { useState, useTransition } from "react";
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
-import { TMemberProfile } from "../../types/members";
 
 const editProfileSchema = z.object({
   name: z.string().min(2, "O nome deve ter pelo menos 2 caracteres"),
@@ -47,6 +48,7 @@ export function EditProfileDialog({
   const [isPending, startTransition] = useTransition();
   const queryClient = useQueryClient();
   const [preview, setPreview] = useState<string | null>(null);
+  const util = trpc.useContext();
 
   const {
     register,
@@ -74,34 +76,26 @@ export function EditProfileDialog({
     },
   });
 
-  const { mutate: mutation } = useMutation({
-    mutationFn: async (data: EditProfileForm & { image?: File }) => {
-      const formData = new FormData();
-      formData.append("name", data.name);
-      formData.append("bio", data.bio || "");
-      formData.append("location", data.location || "");
-      if (data.image) formData.append("image", data.image);
+  const { mutate: updateProfile, isPending: isPendingUpdate } =
+    trpc.member.updateProfile.useMutation({
+      onSuccess: () => {
+        toast.success("Perfil atualizado com sucesso");
+        util.member.getById.invalidate();
+      },
 
-      const res = await fetch(`/api/members/${member.id}`, {
-        method: "PATCH",
-        body: formData,
-      });
-
-      if (!res.ok) throw new Error("Erro ao atualizar perfil");
-      return res.json();
-    },
-    onSuccess: () => {
-      toast.success("Perfil atualizado com sucesso!");
-      queryClient.invalidateQueries({ queryKey: ["member", member.id] });
-      onOpenChange(false);
-    },
-    onError: (error: Error) => {
-      toast.error(error?.message || "Erro ao atualizar perfil");
-    },
-  });
+      onError: (error) => {
+        toast.error(error.message || "Erro ao atualizar perfil");
+      },
+    });
 
   const onSubmit = (data: EditProfileForm) => {
-    startTransition(() => mutation(data));
+    startTransition(() => {
+      updateProfile({
+        ...data,
+        id: member.id,
+        image: preview || member.avatar || undefined,
+      });
+    });
   };
 
   return (
@@ -191,9 +185,12 @@ export function EditProfileDialog({
             >
               Cancelar
             </Button>
-            <Button type="submit" disabled={isPending} className="flex-1">
-              {isPending ? (
-                "Salvando..."
+            <Button type="submit" disabled={isPendingUpdate} className="flex-1">
+              {isPendingUpdate ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Salvando
+                </>
               ) : (
                 <>
                   <Save className="h-4 w-4 mr-2" />
