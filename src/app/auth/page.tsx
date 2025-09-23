@@ -14,7 +14,7 @@ const AuthPage = () => {
       <div className="w-full max-w-md space-y-6">
         <div className="text-center space-y-2">
           <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl font-bold text-primary-foreground">
+            <span className="text-2xl font-bold text-primary dark:text-foreground">
               <Shield />
             </span>
           </div>

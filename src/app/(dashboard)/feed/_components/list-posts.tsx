@@ -18,26 +18,7 @@ const ListPosts = () => {
           <Skeleton />
         </div>
       ) : (
-        post?.map((post) => (
-          <PostCard
-            key={post.id}
-            post={{
-              id: String(post.id),
-              author: {
-                id: post.user.id,
-                name: post.user.name,
-                avatar: post.user.image ?? "/placeholder.svg",
-                role: "user",
-              },
-              content: post.content,
-              image: post.image ?? undefined,
-              timestamp: new Date(post.createdAt).toLocaleString(),
-              likes: post.likes,
-              comments: post.comments.length,
-              isLiked: false,
-            }}
-          />
-        ))
+        post?.map((post) => <PostCard key={post.id} postCard={post} />)
       )}
     </div>
   );

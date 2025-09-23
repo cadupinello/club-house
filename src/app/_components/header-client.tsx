@@ -11,7 +11,7 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { Bell, LogOut, Search, Settings, User } from "lucide-react";
+import { Bell, LogOut, Search, Settings, Shield, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -45,7 +45,9 @@ export default function HeaderClient({ user }: Props) {
           href="/feed"
           className="flex items-center space-x-3 hover:opacity-80 transition-opacity animate-in fade-in-50"
         >
-          <span className="text-sm font-bold text-primary-foreground">⚽</span>
+          <span className="text-sm font-bold text-primary dark:text-foreground">
+            <Shield className="h-8 w-8 text-primary dark:text-foreground dark:text-foreground" />
+          </span>
           <h1 className="text-xl font-bold text-foreground">ClubHouse FC</h1>
         </Link>
 
@@ -74,7 +76,7 @@ export default function HeaderClient({ user }: Props) {
                       src={user.image || "/diverse-user-avatars.png"}
                       alt={user.name || "Usuário"}
                     />
-                    <AvatarFallback className="bg-primary text-primary-foreground">
+                    <AvatarFallback className="bg-primary text-primary dark:text-foreground">
                       {getInitials(user?.name)}
                     </AvatarFallback>
                   </Avatar>

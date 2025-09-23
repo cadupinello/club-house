@@ -103,7 +103,10 @@ export function CreatePost({ user }: CreatePostProps) {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <div className="flex space-x-4">
             <Avatar className="h-12 w-12 ring-2 ring-primary/10">
-              <AvatarImage src={user?.image || "/diverse-user-avatars.png"} />
+              <AvatarImage
+                className="h-12 w-12 object-cover"
+                src={user?.image || "/diverse-user-avatars.png"}
+              />
               <AvatarFallback>
                 {user?.name?.slice(0, 2)?.toUpperCase()}
               </AvatarFallback>

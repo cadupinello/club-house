@@ -114,7 +114,7 @@ export function EditProfileDialog({
                   src={preview || member.avatar || ""}
                   className="object-cover"
                 />
-                <AvatarFallback className="bg-primary text-primary-foreground text-xl">
+                <AvatarFallback className="bg-primary text-primary dark:text-foreground text-xl">
                   {member.name
                     .split(" ")
                     .map((n) => n[0])
