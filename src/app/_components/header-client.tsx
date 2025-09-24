@@ -22,7 +22,7 @@ import {
 import { useLogout } from "../auth/mutation";
 
 interface Props {
-  user: { id: string; name?: string; image?: string; email?: string };
+  user: { id: string; name?: string; image?: string; email?: string } | null;
 }
 
 export default function HeaderClient({ user }: Props) {
@@ -41,91 +41,96 @@ export default function HeaderClient({ user }: Props) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link
-          href="/feed"
-          className="flex items-center space-x-3 hover:opacity-80 transition-opacity animate-in fade-in-50"
-        >
-          <span className="text-sm font-bold text-primary dark:text-foreground">
-            <Shield className="h-8 w-8 text-primary dark:text-foreground dark:text-foreground" />
-          </span>
-          <h1 className="text-xl font-bold text-foreground">ClubHouse FC</h1>
-        </Link>
+        <div className="flex items-center space-x-4">
+          <Link
+            href={user?.id ? "/feed" : "/"}
+            className="flex items-center space-x-3 hover:opacity-80 transition-opacity animate-in fade-in-50"
+          >
+            <span className="text-sm font-bold text-primary dark:text-foreground">
+              <Shield className="h-8 w-8 text-primary dark:text-foreground" />
+            </span>
+            <h1 className="text-xl font-bold text-foreground">ClubHouse FC</h1>
+          </Link>
+          <ModeToggle />
+        </div>
 
         <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" className="rounded-full">
-            <Search className="h-4 w-4" />
-          </Button>
+          {user?.id && (
+            <>
+              <Button variant="ghost" size="sm" className="rounded-full">
+                <Search className="h-4 w-4" />
+              </Button>
 
-          <Button variant="ghost" size="sm" className="rounded-full">
-            <Bell className="h-4 w-4" />
-          </Button>
+              <Button variant="ghost" size="sm" className="rounded-full">
+                <Bell className="h-4 w-4" />
+              </Button>
 
-          <ModeToggle />
+              <Menubar className="border-none bg-transparent">
+                <MenubarMenu>
+                  <MenubarTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full h-8 w-8 p-0"
+                    >
+                      <Avatar className="h-8 w-8">
+                        <AvatarImage
+                          className="object-cover"
+                          src={user?.image || "/diverse-user-avatars.png"}
+                          alt={user?.name || "Usuário"}
+                        />
+                        <AvatarFallback className="bg-primary text-primary dark:text-foreground">
+                          {getInitials(user?.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                    </Button>
+                  </MenubarTrigger>
+                  <MenubarContent align="end" className="min-w-[200px]">
+                    <div className="px-2 py-1.5">
+                      <p className="text-sm font-medium truncate">
+                        {user?.name || "Usuário"}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span>{user?.email}</span>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{user?.email}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </p>
+                    </div>
 
-          <Menubar className="border-none bg-transparent">
-            <MenubarMenu>
-              <MenubarTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full h-8 w-8 p-0"
-                >
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage
-                      className="object-cover"
-                      src={user.image || "/diverse-user-avatars.png"}
-                      alt={user.name || "Usuário"}
-                    />
-                    <AvatarFallback className="bg-primary text-primary dark:text-foreground">
-                      {getInitials(user?.name)}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              </MenubarTrigger>
-              <MenubarContent align="end" className="min-w-[200px]">
-                <div className="px-2 py-1.5">
-                  <p className="text-sm font-medium truncate">
-                    {user.name || "Usuário"}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <span>{user.email}</span>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{user.email}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </p>
-                </div>
+                    <MenubarSeparator />
 
-                <MenubarSeparator />
+                    <MenubarItem
+                      onClick={() => router.push(`/profile/${user?.id}`)}
+                      className="cursor-pointer flex items-center gap-2"
+                    >
+                      <User className="h-4 w-4" />
+                      Meu Perfil
+                    </MenubarItem>
 
-                <MenubarItem
-                  onClick={() => router.push(`/profile/${user.id}`)}
-                  className="cursor-pointer flex items-center gap-2"
-                >
-                  <User className="h-4 w-4" />
-                  Meu Perfil
-                </MenubarItem>
+                    <MenubarItem className="cursor-pointer flex items-center gap-2">
+                      <Settings className="h-4 w-4" />
+                      Configurações
+                    </MenubarItem>
 
-                <MenubarItem className="cursor-pointer flex items-center gap-2">
-                  <Settings className="h-4 w-4" />
-                  Configurações
-                </MenubarItem>
+                    <MenubarSeparator />
 
-                <MenubarSeparator />
-
-                <MenubarItem
-                  onClick={() => logout()}
-                  className="cursor-pointer text-red-600 focus:text-red-600 flex items-center gap-2"
-                >
-                  <LogOut className="h-4 w-4" />
-                  Sair
-                </MenubarItem>
-              </MenubarContent>
-            </MenubarMenu>
-          </Menubar>
+                    <MenubarItem
+                      onClick={() => logout()}
+                      className="cursor-pointer text-red-600 focus:text-red-600 flex items-center gap-2"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Sair
+                    </MenubarItem>
+                  </MenubarContent>
+                </MenubarMenu>
+              </Menubar>
+            </>
+          )}
         </div>
       </div>
     </header>

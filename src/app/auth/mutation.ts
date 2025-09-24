@@ -64,7 +64,7 @@ export const useLogout = ({ router }: IAuthMutationProps) => {
       await authClient.signOut();
     },
     onSuccess: () => {
-      router.replace("/auth");
+      router.replace("/");
     },
     onError: (error) => {
       console.error(error);
