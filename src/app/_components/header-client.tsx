@@ -43,7 +43,7 @@ export default function HeaderClient({ user }: Props) {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link
-            href={user?.id ? "/feed" : "/"}
+            href={user?.id ? `/feed/${user.id}` : "/"}
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity animate-in fade-in-50"
           >
             <span className="text-sm font-bold text-primary dark:text-foreground">

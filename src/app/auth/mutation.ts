@@ -23,8 +23,8 @@ export const useLogin = ({ router }: IAuthMutationProps) => {
       
       return data;
     },
-    onSuccess: () => {
-      router.replace("/feed");
+    onSuccess: (data) => {
+      router.replace(`/feed/${data.user.id}`);
     },
     onError: (error) => {
       console.error(error);
@@ -48,8 +48,8 @@ export const useRegister = ({ router }: IAuthMutationProps) => {
       
       return data;
     },
-    onSuccess: () => {
-      router.replace("/feed");
+    onSuccess: (data) => {
+      router.replace(`/feed/${data.user.id}`);
     },
     onError: (error) => {
       console.error(error);

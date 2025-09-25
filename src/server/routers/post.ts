@@ -116,6 +116,7 @@ export const PostRouter = router({
           id: post.user.id,
           name: post.user.name,
           image: post.user.image,
+          email: post.user.email,
         },
         likes: post.likes.length,
         comments: post.comments.length,

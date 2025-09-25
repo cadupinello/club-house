@@ -80,5 +80,23 @@ export const MemberProfileRouter = router({
 
       return data;
     }),
-
+  
+  getAllPostsByMember: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const posts = await ctx.prisma.post.findMany({
+        where: {
+          userId: input.id
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        include: {
+          user: true,
+          comments: true,
+          likes: true,
+        },
+      });
+      return posts;
+    }),
 });

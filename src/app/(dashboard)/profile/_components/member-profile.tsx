@@ -11,6 +11,7 @@ import { EditProfileDialog } from "./edit-profile";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useParams } from "next/navigation";
+import { PostCard } from "../../feed/[id]/_components/post-card";
 
 export function MemberProfile() {
   const [showEditDialog, setShowEditDialog] = useState(false);
@@ -25,6 +26,10 @@ export function MemberProfile() {
     id: memberId,
   });
 
+  const { data: posts } = trpc.member.getAllPostsByMember.useQuery({
+    id: memberId,
+  });
+
   const stats = [
     { label: "Posts", value: member?.stats.posts },
     { label: "Comentários", value: member?.stats.comments },
@@ -33,22 +38,54 @@ export function MemberProfile() {
     { label: "Seguidores", value: member?.stats.followers },
   ];
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6 animate-pulse">
         <Card>
-          <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
-            <Skeleton className="h-24 w-24 rounded-full" />
-            <div className="flex-1 space-y-3 md:py-4">
-              <Skeleton className="h-4 w-1/6" />
-              <Skeleton className="h-4 w-1/6" />
-              <Skeleton className="h-24 w-full" />
-              <Skeleton className="h-8 w-[400px]" />
+          <CardContent className="pt-6">
+            <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
+              <Skeleton className="h-24 w-24 rounded-full" />
+
+              <div className="flex-1 space-y-4">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                  <Skeleton className="h-6 w-48" />
+                  <Skeleton className="h-8 w-28 mt-2 md:mt-0 rounded-lg" />
+                </div>
+
+                <div className="flex space-x-6">
+                  <Skeleton className="h-4 w-32" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+
+                <Skeleton className="h-16 w-full max-w-2xl rounded-lg" />
+
+                <div className="flex flex-wrap gap-2">
+                  <Skeleton className="h-6 w-20 rounded-full" />
+                  <Skeleton className="h-6 w-16 rounded-full" />
+                  <Skeleton className="h-6 w-24 rounded-full" />
+                </div>
+              </div>
             </div>
-          </div>
+
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-4">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Card
+                  key={i}
+                  className="text-center shadow-sm border border-border"
+                >
+                  <CardContent className="space-y-2">
+                    <Skeleton className="h-5 w-10 mx-auto" />
+                    <Skeleton className="h-3 w-16 mx-auto" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
         </Card>
       </div>
     );
+  }
+
   if (isError || !member)
     return (
       <div className="space-y-6">
@@ -76,7 +113,10 @@ export function MemberProfile() {
           <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
             <div className="relative">
               <Avatar className="h-24 w-24 ring-2 ring-border">
-                <AvatarImage src={member.avatar || "/placeholder.svg"} />
+                <AvatarImage
+                  className="object-cover"
+                  src={member.avatar || "/placeholder.svg"}
+                />
                 <AvatarFallback>
                   {member.name
                     .split(" ")
@@ -152,6 +192,17 @@ export function MemberProfile() {
               </Card>
             ))}
           </div>
+
+          {posts && posts.length > 0 && (
+            <div className="mt-4">
+              <h2 className="text-lg font-bold">Publicações</h2>
+              <div className="flex flex-col gap-4">
+                {posts.map((post) => (
+                  <PostCard key={post.id} postCard={post} />
+                ))}
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 
